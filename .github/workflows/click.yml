@@ -1,0 +1,46 @@
+name: Random Click
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        type: string
+        required: true
+      times:
+        type: number
+        required: true
+      interval:
+        type: number
+        required: true
+        default: 1000
+
+jobs:
+  click:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          repository: wzshiming/puppeteer-call
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run random click script with cache
+        run: |
+            node index.js \
+              --url "${{inputs.url}}" \
+              --times "1"
+      - name: Run random click script
+        run: |
+            node index.js \
+              --proxy-host "${{secrets.PROXY_HOST}}" \
+              --proxy-port "${{secrets.PROXY_PORT}}" \
+              --proxy-username "${{secrets.PROXY_USERNAME}}" \
+              --proxy-password "${{secrets.PROXY_PASSWORD}}" \
+              --interval "${{inputs.interval}}"
+              --url "${{inputs.url}}" \
+              --times "${{inputs.times}}"
