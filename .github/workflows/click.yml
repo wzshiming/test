@@ -41,6 +41,6 @@ jobs:
               --proxy-port "${{secrets.PROXY_PORT}}" \
               --proxy-username "${{secrets.PROXY_USERNAME}}" \
               --proxy-password "${{secrets.PROXY_PASSWORD}}" \
-              --interval "${{inputs.interval}}"
+              --interval "${{inputs.interval}}" \
               --url "${{inputs.url}}" \
               --times "${{inputs.times}}"
